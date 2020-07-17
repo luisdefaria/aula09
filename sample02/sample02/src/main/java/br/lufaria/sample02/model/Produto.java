@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tblproduto")
@@ -21,6 +25,12 @@ public class Produto {
     
     @Column(name="preco")
     private double preco;
+
+    //Relacionamento
+    @ManyToOne
+    @JoinColumn(name = "departamento_id")
+    @JsonIgnoreProperties("listaProdutos")
+    private Departamento depto;
 
 
     public int getCod() {
@@ -46,6 +56,14 @@ public class Produto {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
+	public Departamento getDepto() {
+		return depto;
+	}
+
+	public void setDepto(Departamento depto) {
+		this.depto = depto;
+	}
 
        
 }

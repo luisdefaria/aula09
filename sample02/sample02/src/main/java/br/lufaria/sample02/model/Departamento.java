@@ -1,11 +1,18 @@
 package br.lufaria.sample02.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tblDepartamento")
@@ -21,6 +28,11 @@ public class Departamento {
     
     @Column(name="local", length = 50)
     private String local;
+
+    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy ="depto")
+    @JsonIgnoreProperties ("depto")
+    private List<Produto> listaProdutos;   
 
     public int getId() {
         return id;
@@ -44,6 +56,14 @@ public class Departamento {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public List<Produto> getListaProdutos() {
+        return listaProdutos;
+    }
+
+    public void setListaProdutos(List<Produto> listaProdutos) {
+        this.listaProdutos = listaProdutos;
     }
 
 
